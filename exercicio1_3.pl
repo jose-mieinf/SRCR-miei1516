@@ -36,7 +36,7 @@ inst(hospital,oftalmologia).
 
 % Extensão do predicado utente: Utente, Instituicao, Servico, Professional -> {V, F}
 
-utente(utente1,hospital,pediatria,doutor1).,
+utente(utente1,hospital,pediatria,doutor1).
 
 
 
