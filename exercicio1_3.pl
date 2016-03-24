@@ -58,7 +58,11 @@ utentes(I,[X|L]) :-
 % Identificar os utentes de um determinado serviço
 % Extensao do predicado utenteServico: S, Lu -> {V, F}
 
-utenteServico
+utenteServico(S,[X]) :-
+	utente(X,I,S,D).
+utenteServico(S,[X|L]) :-
+	utente(X,I,S,D),
+	utenteServico(S,L).
 
 
 
