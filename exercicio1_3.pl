@@ -28,6 +28,11 @@ instituicao(hospital,oftalmologia,doutor5).
 
 inst(hospital,pediatria).
 inst(hospital,obstetricia).
+inst(hospital,otorrinolaringologia).
+inst(hospital,fisioterapia).
+inst(hospital,oftalmologia).
+
+
 
 % Extensão do predicado utente: Utente, Instituicao, Servico, Professional -> {V, F}
 
