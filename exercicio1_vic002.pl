@@ -65,6 +65,10 @@ utente(utente1,h1,pediatria,medico1).
 
 
 % Identificar os serviçoes existentes numa instituição
+servicosEm(I) :- 
+   write('Servicos disponiveis em:'), write(I), nl,
+	 inst(I,S), write(S), nl, fail.
+
 % Extensão do predicado servicos: I, Ls -> {V,F}
 
 servicos(I,[X]) :-
@@ -116,12 +120,36 @@ profDe(Profissional, Instituicao) :-
 
 % Identificar os serviços que não se podem encontrar numa instituição
 servicosIndisponiveis(X) :- inst(I,S), I \= X, \member(S, servicosEm(X, S)).
-% criar lista de servicos
 
+% criar lista de servicos (nao ordenada)
+servicos_disponiveis(S) :- 
+   inst(I,S), write(S), write(' em '), write(I), nl, fail.
+	
 % Determinar as instituições onde um profissional presta serviço
+   profissionalEm(P) :- 
+   write('Locais de trabalho de:'), write(P), nl,
+	 profissional(I,_,P), write(I), nl, fail.
 
 % Determinar todas as instituições (ou serviços, ou profissionais) a que um utente já recorreu
-
+utenteFoi(U) :- 
+   write(U), write(' foi utente de:'), nl,
+	 utente(U,I,S,P), write(I), write(S), write(P), nl, fail.
+	 
+% Determinar todas os profissionais a que um utente já recorreu
+utenteFoiP(U) :- 
+   write(U), write(' foi utente de:'), nl,
+	 utente(U,_,_,P), write(P), nl, fail.
+	 
+% Determinar todas os serviços a que um utente já recorreu
+utenteFoiS(U) :- 
+   write(U), write(' foi utente de:'), nl,
+	 utente(U,_,S,_), write(S), nl, fail.
+	 
+% Determinar todas as instituições a que um utente já recorreu
+utenteFoiI(U) :- 
+   write(U), write(' foi utente de:'), nl,
+	 utente(U,I,_,_), write(I), nl, fail.
+	 
 % Registar utentes, profissionais, serviços ou instituições
 
 % Remover utentes (ou profissionais, ou serviços, ou instituições) dos registos
