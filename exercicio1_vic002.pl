@@ -168,20 +168,58 @@ nao(_).
 
 
 % Extensão do predicado que permite a evolucao do conhecimento
-evolucao(T) :-
-	%findall(I, +T::I, Li).
-	inserir(T).
-	verificar(Li).
+
+evolucao( Termo ) :-
+		solucoes( Invariante,+Termo::Invariante,Lista ),
+		insercao( Termo ),
+		teste( Lista ).
+		
+insercao( Termo ) :- assert( Termo ).
+insercao( Termo ) :- retract( Termo ),!,fail.
+
+verificar( [] ).
+verificar( [R|LR] ) :-
+		R,
+		verificar( LR ).
+
+solucoes( X,Y,Z ) :-
+		findall( X,Y,Z ).
+
+% comprimento( S, N ) :-
+%		length( S, N ).
 
 
-inserir(T) :- assert(T).
-%inserir(T) :- retract(T), !, fail.
 
+% DAS PRATICAS para referencia - porventura ERRADO
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado filho: Filho,Pai -> {V,F,D}
 
-verificar([]).
-verificar([I|L]) :-
-	I, 
-	verificar(L).
+filho( joao,jose ).
+filho( jose,manuel ).
+filho( carlos,jose ).
 
+% Invariante Estrutural:  nao permitir a insercao de conhecimento
+%                         repetido
 
++filho( F,P ) :: (solucoes( (F,P),(filho( F,P )),S ),
+                  length( S,N ), 
+				  N == 1
+                  ).
+
+% Invariante Referencial: nao admitir mais do que 2 progenitores
+%                         para um mesmo individuo
+% -**--*-*-*-*-**-*-*-** alterado **-*-*-*-*-*-*--*-*-*-*-*-*
+
++filho( F,_ ) :: (solucoes( (Ps),(filho( F,Ps )),S ),
+				   length( S,N ),
+				   N=<2
+                  ).
+									
+% NOVO 
+% vii. Não podem existir mais do que 2 progenitores para um dado indivíduo,
+% na relação pai/2;
++pai( _,F ) :: (solucoes( (Ps),(filho( F,Ps )),S ),
+				   comprimento( S,N ),
+				   N=<2
+                  ).
 
