@@ -10,19 +10,26 @@
 %--------------------------------------------------------------------------------------------
 % Base de conhecimento com informação sobre instituições, serviços, professionais e utentes
 
-:- dyanamic instituicao/3.
 
-:- dynamic inst/2.
+% :- dyanamic instituicao/3.
 
-:- dynamic utente/4.
+% :- dynamic inst/2.
+
+% :- dynamic utente/4.
 
 % Extensao do predicado instituicao: Instituicao,Servico,Profesional -> {V,F}
 
-instituicao(hospital,pediatria,doutor1).
-instituicao(hospital,obstetricia,doutor2).
-instituicao(hospital,otorrinolaringologia,doutor3).
-instituicao(hospital,fisioterapia,doutor4).
-instituicao(hospital,oftalmologia,doutor5).
+instituicao(h1,pediatria,medico1).
+instituicao(h1,obstetricia,medico2).
+instituicao(h1,orl,medico3).
+instituicao(h1,fisioterapia,medico4).
+instituicao(h1,oftalmologia,medico5).
+instituicao(h2,pediatria,medico1).
+instituicao(h2,orl,medico7).
+instituicao(h2,fisioterapia,medico8).
+instituicao(h2,cardiologia,medico9).
+instituicao(h2,cardiologia,medico10).
+
 
 % Extensao do predicado inst: Instituicao,Servico -> {V,F}
 
@@ -36,7 +43,19 @@ inst(hospital,oftalmologia).
 
 % Extensão do predicado utente: Utente, Instituicao, Servico, Professional -> {V, F}
 
-utente(utente1,hospital,pediatria,doutor1).
+utente(utente1,h1,pediatria,medico1).
+utente(utente2,h1,pediatria,medico1).
+utente(utente2,h2,cardiologia,medico9).
+utente(utente3,h2,cardiologia,medico10).
+utente(utente4,h2,orl,medico7).
+
+
+% Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
+
++inst(I,S) :: (findall((I,S),(inst(I,S)),Ls ),
+                  comprimento(Ls,N), 
+		  N == 1
+                  ).
 
 
 
@@ -44,9 +63,9 @@ utente(utente1,hospital,pediatria,doutor1).
 % Extensão do predicado servicos: I, Ls -> {V,F}
 
 servicos(I,[X]) :-
-	inst(I,X).
+	instituicao(I,X,P).
 servicos(I,[X|L]) :-
-	inst(I,X),
+	instituicao(I,X,P),
 	servicos(I,L).	
 
 
@@ -69,7 +88,6 @@ utenteServico(S,[X]) :-
 utenteServico(S,[X|L]) :-
 	utente(X,I,S,D),
 	utenteServico(S,L).
-
 
 
 % Identificar os utentes de um determinado serviço numa instituição
