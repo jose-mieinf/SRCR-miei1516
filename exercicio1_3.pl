@@ -91,16 +91,72 @@ utenteServico(S,[X|L]) :-
 
 
 % Identificar os utentes de um determinado serviço numa instituição
+% Extensao do predicado utenteServicoInst: S, I, Lu -> {V, F}
 
+utenteServicoInst(S, I, [X]) :-
+	utente(X,I,S,D).
+utenteServicoInst(S,I,[X|L]) :-
+	utente(X,I,S,D),
+	utenteServicoInst(S,I,L).
 
 
 % Identificar as instituições onde seja prestado um dado serviço ou conjunto de serviços
+% Extensao do predicado instServicos: Ls, Li -> {V, F}
+
+% instsServicos() :-
+
+
+
 
 % Identificar os serviços que não se podem encontrar numa instituição
+% Extensao do predicado servicosNdInst: I, Ls -> {V, F}
+
+
+% servicosNdInst(I, [X]) :-
+%	instituicao(I,X,P).
+% servicosNdInst(I, [X|L]) :-
+%	instituicao(I,X,P),
+%	servicosNdInst(I,L).
+
 
 % Determinar as instituições onde um profissional presta serviço
+% Extensao do predicado professionalInst: P, Li -> {V, F}
+
+professionalInst(P, [I]) :-
+	instituicao(I,X,P).
+professionalInst(P, [I|L]) :-
+	instituicao(I,X,P),
+	professionalInst(P,L). 
+
 
 % Determinar todas as instituições (ou serviços, ou profissionais) a que um utente já recorreu
+% Extensao do predicado utenteListaInst: U, Li -> {V, F}
+
+utenteListaInst(U,[I]) :-
+	utente(U,I,S,P).
+utenteListaInst(U,[I|L]) :-
+	utente(U, I, S, P),
+	utenteListaInst(U, L).
+
+
+% Extensao do predicado utenteListaServ: U, Ls -> {V, F}
+
+utenteListaServ(U,[S]) :-
+	utente(U,I,S,P).
+utenteListaServ(U,[S|L]) :-
+	utente(U, I, S, P),
+	utenteListaServ(U, L).
+
+
+
+% Extensao do predicado utenteListaPro: U, Lp -> {V, F}
+
+utenteListaPro(U,[P]) :-
+	utente(U,I,S,P).
+utenteListaPro(U,[P|L]) :-
+	utente(U, I, S, P),
+	utenteListaPro(U, L).
+
 
 % Registar utentes, profissionais, serviços ou instituições
 
