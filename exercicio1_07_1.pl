@@ -121,7 +121,7 @@ instServicos([LiH|LiT] , Ls) :-
 % Identificar os serviços que não se podem encontrar numa instituição
 % Extensao do predicado servicosNdInst: Li, Ls -> {V, F}
 
-semServicos(Li,ls) :-
+semServicos(Li,Ls) :-
 	\+ instServicos(Li,Ls).
 
 
@@ -223,10 +223,20 @@ removeProfissional(P) :-
 
 % Extensão do predicado removeServicoInst: S, I -> {V,F}
 
-% removeServico(S, I) :-
+removeServicoInst(S, I) :-
+	findall((U,I,S,P),utente(U,I,S,P),Lsu),
+	retractListaUtente(Lsu),
+	findall((I,S,P),instituicao(I,S,P),Ls),
+	retractListaInstituicao(Ls).
 
 
+% Extensao do predicado removeServicoAll: S -> {V, F}
 
+removeServicoAll(S) :-
+	findall((U,I,S,P),utente(U,I,S,P),Lsu),
+	retractListaUtente(Lsu),
+	findall((I,S,P),instituicao(I,S,P),Ls),
+	retractListaInstituicao(Ls).
 
 
 
