@@ -180,11 +180,12 @@ registaInstituicao(I,S,P) :-
 
 % Remover utentes (ou profissionais, ou serviços, ou instituições) dos registos
 
+% Extensao do predicado removeUtente: U -> {V, F}
+
 removeUtente(U) :-
 	findall((U,I,S,P),utente(U,I,S,P),Lu),
 	retractListaUtente(Lu).
 	
-
 
 retractListaUtente([(U,I,S,P)]) :-
 	retract(utente(U,I,S,P)).
@@ -193,6 +194,20 @@ retractListaUtente([(U,I,S,P)|L]) :-
 	retractListaUtente(L).
 	
 		
+	
+% Extensao do predicado removeInstituicao: I -> {V, F}
+
+removeInstituicao(I) :-
+	findall((U,I,S,P),utente(U,I,S,P),Liu),
+	retractListaUtente(Liu),
+	findall((I,S,P),instituicao(I,S,P),Li),
+	retractListaInstituicao(Li).
+
+retractListaInstituicao([(I,S,P)]) :-
+	retract(instituicao(I,S,P)).
+retractListaInstituicao([(I,S,P)|L]) :-
+	retract(instituicao(I,S,P)),
+	retractListaInstituicao(L).
 	
 
 
