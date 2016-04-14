@@ -54,6 +54,16 @@ utente(utente4,hospital2,orl,medico7).
 	       		).
 
 
+% Invariante referencial para utente: não permitir a inserção de utentes atendidos por um serviço e profissional que não existe na instituição visitada
+
++utente(_,I,S,P) :: (findall((I,S,P),(instituicao(I,S,P)),Ls ),
+               		comprimento(Ls,N),
+	       		N == 1
+	       		).
+
+
+
+
 % Identificar os serviçoes existentes numa instituição
 % Extensão do predicado servicos: I, Ls -> {V,F}
 
