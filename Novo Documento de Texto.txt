@@ -1,0 +1,9 @@
+% Identificar as instituições onde seja prestado um dado serviço ou conjunto de serviços
+% Extensao do predicado instServicos: Ls, Li -> {V, F}
+
+instsServicos( [I], Ls ) :-
+	 servicos(I,Ls).
+instsServicos([LiH|LiT] , Ls) :-
+   servicos(LiH,Ls), 
+	 instsServicos(LiT, Ls).
+
