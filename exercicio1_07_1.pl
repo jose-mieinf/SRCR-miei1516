@@ -40,7 +40,15 @@ utente(utente4,hospital2,orl,medico7).
 
 % Invariante Estrutural para instituicao:  nao permitir a insercao de conhecimento repetido
 
-+instituicao(I,S,P) :: (findall((I,S,P),(inst(I,S,P)),Ls ),
++instituicao(I,S,P) :: (findall((I,S,P),(instituicao(I,S,P)),Ls ),
+               		comprimento(Ls,N),
+	       		N == 1
+	       		).
+
+
+% Invariante Estrutural para utente:  nao permitir a insercao de conhecimento repetido
+
++utente(U,I,S,P) :: (findall((U,I,S,P),(utente(U,I,S,P)),Ls ),
                		comprimento(Ls,N),
 	       		N == 1
 	       		).
