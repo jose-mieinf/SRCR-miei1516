@@ -13,49 +13,37 @@
 
 :- dynamic( instituicao/3 ).
 
-:- dynamic( inst/2 ).
-
 :- dynamic( utente/4 ).
 
 % Extensao do predicado instituicao: Instituicao,Servico,Profesional -> {V,F}
 
-instituicao(h1,pediatria,medico1).
-instituicao(h1,obstetricia,medico2).
-instituicao(h1,orl,medico3).
-instituicao(h1,fisioterapia,medico4).
-instituicao(h1,oftalmologia,medico5).
-instituicao(h2,pediatria,medico1).
-instituicao(h2,orl,medico7).
-instituicao(h2,fisioterapia,medico8).
-instituicao(h2,cardiologia,medico9).
-instituicao(h2,cardiologia,medico10).
-
-
-% Extensao do predicado inst: Instituicao,Servico -> {V,F}
-
-inst(hospital,pediatria).
-inst(hospital,obstetricia).
-inst(hospital,otorrinolaringologia).
-inst(hospital,fisioterapia).
-inst(hospital,oftalmologia).
-
+instituicao(hospital1,pediatria,medico1).
+instituicao(hospital1,obstetricia,medico2).
+instituicao(hospital1,orl,medico3).
+instituicao(hospital1,fisioterapia,medico4).
+instituicao(hospital1,oftalmologia,medico5).
+instituicao(hospital2,pediatria,medico1).
+instituicao(hospital2,orl,medico7).
+instituicao(hospital2,fisioterapia,medico8).
+instituicao(hostipal2,cardiologia,medico9).
+instituicao(hospital2,cardiologia,medico10).
 
 
 % Extensão do predicado utente: Utente, Instituicao, Servico, Professional -> {V, F}
 
-utente(utente1,h1,pediatria,medico1).
-utente(utente2,h1,pediatria,medico1).
-utente(utente2,h2,cardiologia,medico9).
-utente(utente3,h2,cardiologia,medico10).
-utente(utente4,h2,orl,medico7).
+utente(utente1,hospital1,pediatria,medico1).
+utente(utente2,hospital1,pediatria,medico1).
+utente(utente2,hospital2,cardiologia,medico9).
+utente(utente3,hospital2,cardiologia,medico10).
+utente(utente4,hospital2,orl,medico7).
 
 
-% Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
+% Invariante Estrutural para instituicao:  nao permitir a insercao de conhecimento repetido
 
-+inst(I,S) :: (findall((I,S),(inst(I,S)),Ls ),
-               comprimento(Ls,N),
-							 N == 1
-							).
++instituicao(I,S,P) :: (findall((I,S,P),(inst(I,S,P)),Ls ),
+               		comprimento(Ls,N),
+	       		N == 1
+	       		).
 
 
 % Identificar os serviçoes existentes numa instituição
@@ -159,7 +147,16 @@ utenteListaPro(U,[P|L]) :-
 
 % Registar utentes, profissionais, serviços ou instituições
 
+% registaUtente(U,I,S,P) :-
+%	evolucao(utente(U,I,S,P). 
+
+
+
+
 % Remover utentes (ou profissionais, ou serviços, ou instituições) dos registos
+
+% removeUtente(U) :-
+	
 
 
 
