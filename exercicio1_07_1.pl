@@ -108,7 +108,11 @@ utenteServicoInst(S,I,[X|L]) :-
 % Identificar as instituições onde seja prestado um dado serviço ou conjunto de serviços
 % Extensao do predicado instServicos: Ls, Li -> {V, F}
 
-% instsServicos() :-
+instsServicos( [I], Ls ) :-
+	 servicos(I,Ls).
+instsServicos([LiH|LiT] , Ls) :-
+  	 servicos(LiH,Ls), 
+	 instsServicos(LiT, Ls).
 
 
 
@@ -117,11 +121,11 @@ utenteServicoInst(S,I,[X|L]) :-
 % Extensao do predicado servicosNdInst: I, Ls -> {V, F}
 
 
-% servicosNdInst(I, [X]) :-
-%	instituicao(I,X,P).
-% servicosNdInst(I, [X|L]) :-
-%	instituicao(I,X,P),
-%	servicosNdInst(I,L).
+servicosNdInst(I, [S]) :-
+	\+ instituicao(I,S,_).
+servicosNdInst(I, [S|L]) :-
+	\+ instituicao(I,S,_),
+	servicosNdInst(I,L).
 
 
 % Determinar as instituições onde um profissional presta serviço
