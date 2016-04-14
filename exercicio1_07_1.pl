@@ -210,6 +210,15 @@ retractListaInstituicao([(I,S,P)|L]) :-
 	retractListaInstituicao(L).
 	
 
+% Extensão do predicado removeProfissional: P -> {V, F}
+
+removeProfissional(P) :-
+	findall((U,I,S,P),utente(U,I,S,P),Lpu),
+	retractListaUtente(Lpu),
+	findall((I,S,P),instituicao(I,S,P),Lp),
+	retractListaInstituicao(Lp).
+
+
 
 
 
