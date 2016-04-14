@@ -54,7 +54,8 @@ utente(utente4,hospital2,orl,medico7).
 	       		).
 
 
-% Invariante referencial para utente: não permitir a inserção de utentes atendidos por um serviço e profissional que não existe na instituição visitada
+% Invariante referencial para utente: não permitir a inserção de utentes atendidos por um serviço e 
+% profissional que não existe na instituição visitada
 
 +utente(_,I,S,P) :: (findall((I,S,P),(instituicao(I,S,P)),Ls ),
                		comprimento(Ls,N),
@@ -108,9 +109,9 @@ utenteServicoInst(S,I,[X|L]) :-
 % Identificar as instituições onde seja prestado um dado serviço ou conjunto de serviços
 % Extensao do predicado instServicos: Ls, Li -> {V, F}
 
-instsServicos( [I], Ls ) :-
+instServicos( [I], Ls ) :-
 	 servicos(I,Ls).
-instsServicos([LiH|LiT] , Ls) :-
+instServicos([LiH|LiT] , Ls) :-
   	 servicos(LiH,Ls), 
 	 instsServicos(LiT, Ls).
 
@@ -118,14 +119,10 @@ instsServicos([LiH|LiT] , Ls) :-
 
 
 % Identificar os serviços que não se podem encontrar numa instituição
-% Extensao do predicado servicosNdInst: I, Ls -> {V, F}
+% Extensao do predicado servicosNdInst: Li, Ls -> {V, F}
 
-
-servicosNdInst(I, [S]) :-
-	\+ instituicao(I,S,_).
-servicosNdInst(I, [S|L]) :-
-	\+ instituicao(I,S,_),
-	servicosNdInst(I,L).
+semServicos(Li,ls) :-
+	\+ instServicos(Li,Ls).
 
 
 % Determinar as instituições onde um profissional presta serviço
@@ -224,7 +221,9 @@ removeProfissional(P) :-
 
 
 
+% Extensão do predicado removeServicoInst: S, I -> {V,F}
 
+% removeServico(S, I) :-
 
 
 
