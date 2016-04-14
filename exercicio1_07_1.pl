@@ -165,9 +165,16 @@ utenteListaPro(U,[P|L]) :-
 
 % Registar utentes, profissionais, serviços ou instituições
 
-% registaUtente(U,I,S,P) :-
-%	evolucao(utente(U,I,S,P). 
+% Extensao do predicado registaUtente: U, I, S, P -> {V, F}
 
+registaUtente(U,I,S,P) :-
+	evolucao(utente(U,I,S,P)). 
+
+
+% Extensao do predicado registaInstituicao: I, S, P -> {V, F}
+
+registaInstituicao(I,S,P) :-
+	evolucao(instituicao(I,S,P)).
 
 
 
