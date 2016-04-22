@@ -68,7 +68,6 @@ utente(27,celeste,43,"Rua da Liberdade nr. 5").
 utente(28,eurico,45,"Rua 29 de Fevereiro nr. 7").
 utente(29,fernando,48,"Avenida Rainha Gertrudes nr. 10").
 utente(30,paula,50,"Avenida Rainha Gertrudes nr. 10").
-utente(31,nome_desconhecido,50,"Avenida Rainha Gertrudes nr. 12").
 utente(32,manuela,idade_desconhecida,"Rua do Olival nr. 40").
 
 
@@ -85,7 +84,7 @@ excecao(utente(Id,Nome,Idade,Morada)) :-
 excecao(utente(31,maria,50,"Avenida Rainha Gertrudes nr. 12")).
 excecao(utente(31,anabela,50,"Avenida Rainha Gertrudes nr. 12")).
 
-% Invariante estrutural
+% Invariante estrutural: não permite inserção de conhecimento repetido
 +utente(Id,Nome,Idade,Morada) :: (solucoes((Id,Nome,Idade,Morada),(utente(Id,Nome,Idade,Morada)),S),
 								 comprimento(S,N),
 								 N == 1).
