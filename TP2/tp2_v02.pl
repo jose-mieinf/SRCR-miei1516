@@ -38,6 +38,10 @@
 % -servico( yesServ, noDescrição, noInstituicao, Cidade ).
 % -consulta( yesDataHora, yesIdUt, yesServ, noCusto ).
 
+%-------------------------------------------------------
+
+% utente: IdUt, Nome, Idade, Morada --> { V, F, D }
+
 utente(1,joao,98,"Rua da Liberdade nr. 19").
 utente(2,jaime,95,"Rua da Liberdade nr. 21").
 utente(3,joana,90,"Rua do Peloirinho nr. 7").
@@ -75,14 +79,38 @@ utente(32,manuela,idade_desconhecida,"Rua do Olival nr. 40").
 	nao(utente(Id,Nome,Idade,Morada)) ,
 	nao(excecao(utente(Id,Nome,Idade,Morada))).
 	
+% nome desconhecido	
 excecao(utente(Id,Nome,Idade,Morada)) :-
 	utente(Id,nome_desconhecido,Idade,Morada).
 	
+% idade desconhecida	
 excecao(utente(Id,Nome,Idade,Morada)) :-
 	utente(Id,Nome,idade_desconhecida,Morada).
+	
+% morada desconhecida	
+excecao(utente(Id,Nome,Idade,Morada)) :-
+	utente(Id,Nome,Idade,morada_desconhecida).
 
+% nome e idade desconhecidos		
+excecao(utente(Id,Nome,Idade,Morada)) :-
+	utente(Id,nome_desconhecido,idade_desconhecida,Morada).
+	
+% nome e morada desconhecidos		
+excecao(utente(Id,Nome,Idade,Morada)) :-
+	utente(Id,nome_desconhecido,Idade,morada_desconhecida).
+
+% idade e morada desconhecidas	
+excecao(utente(Id,Nome,Idade,Morada)) :-
+	utente(Id,Nome,idade_desconhecida,morada_desconhecida).
+	
+% nome, idade e morada desconhecidos	
+excecao(utente(Id,Nome,Idade,Morada)) :-
+	utente(Id,nome_desconhecido,idade_desconhecida,morada_desconhecida).
+	
+	
 excecao(utente(31,maria,50,"Avenida Rainha Gertrudes nr. 12")).
 excecao(utente(31,anabela,50,"Avenida Rainha Gertrudes nr. 12")).
+
 
 % Invariante estrutural: não permite inserção de conhecimento repetido
 +utente(Id,Nome,Idade,Morada) :: (solucoes((Id,Nome,Idade,Morada),(utente(Id,Nome,Idade,Morada)),S),
@@ -90,6 +118,13 @@ excecao(utente(31,anabela,50,"Avenida Rainha Gertrudes nr. 12")).
 								 N == 1).
 
 
+%
++utente(Id,Nome,Idade,Morada) :: (solucoes((Id),(utente(Id,_,_,_)),S),
+								 comprimento(S,N),
+								 N == 1).
+%---------------------------------------------------------------------
+
+								 
 % Representar casos de conhecimento imperfeito, pela utilização de valores nulos de todos os tipos estudados;
 % Manipular invariantes que designem restrições à inserção e à remoção de conhecimento do sistema;
 % Lidar com a problemática da evolução do conhecimento, criando os procedimentos adequados;
