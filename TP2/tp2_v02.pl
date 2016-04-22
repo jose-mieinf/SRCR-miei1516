@@ -107,10 +107,17 @@ excecao(utente(Id,Nome,Idade,Morada)) :-
 excecao(utente(Id,Nome,Idade,Morada)) :-
 	utente(Id,nome_desconhecido,idade_desconhecida,morada_desconhecida).
 	
-	
+% 
 excecao(utente(31,maria,50,"Avenida Rainha Gertrudes nr. 12")).
 excecao(utente(31,anabela,50,"Avenida Rainha Gertrudes nr. 12")).
 
+%
+% excecao(utente(33,julio,Idade,"Rua do Olival nr. 40")) :-
+% 	Idade >= 45 , Idade =< 48.
+
+%
+excecao(utente(33,julio,45,"Rua do Olival nr. 40")).
+excecao(utente(33,julio,47,"Rua do Olival nr. 40")).
 
 % Invariante estrutural: não permite inserção de conhecimento repetido
 +utente(Id,Nome,Idade,Morada) :: (solucoes((Id,Nome,Idade,Morada),(utente(Id,Nome,Idade,Morada)),S),
@@ -118,7 +125,7 @@ excecao(utente(31,anabela,50,"Avenida Rainha Gertrudes nr. 12")).
 								 N == 1).
 
 
-% Invariante não permite inserção de utntes com o mesmo Id
+% Invariante não permite inserção de utentes com o mesmo Id
 +utente(Id,Nome,Idade,Morada) :: (solucoes((Id),(utente(Id,_,_,_)),S),
 								 comprimento(S,N),
 								 N == 1).
