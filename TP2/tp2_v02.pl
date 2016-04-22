@@ -118,10 +118,11 @@ excecao(utente(31,anabela,50,"Avenida Rainha Gertrudes nr. 12")).
 								 N == 1).
 
 
-%
+% Invariante não permite inserção de utntes com o mesmo Id
 +utente(Id,Nome,Idade,Morada) :: (solucoes((Id),(utente(Id,_,_,_)),S),
 								 comprimento(S,N),
 								 N == 1).
+								 
 %---------------------------------------------------------------------
 
 								 
